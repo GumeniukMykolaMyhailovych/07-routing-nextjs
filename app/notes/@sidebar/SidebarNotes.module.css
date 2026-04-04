@@ -21,3 +21,10 @@
 .menuLink:hover {
   background-color: #555;
 }
+
+.active {
+  color: #2563eb;
+  background-color: rgba(8, 75, 221, 0.233);
+  border-left: 3px solid #2563eb;
+  padding-left: 8px;
+}

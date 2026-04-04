@@ -26,10 +26,12 @@ export default function NotesClient({ tag = "all" }: { tag?: string }) {
     return () => clearTimeout(timer);
   }, [search]);
 
+  const normalizedTag = tag === "all" ? undefined : tag;
+
   const { data, isLoading, error } = useQuery({
-    queryKey: ["notes", page, debouncedSearch, tag],
+    queryKey: ["notes", page, debouncedSearch, normalizedTag ?? "all"],
     queryFn: () =>
-      fetchNotes(page, debouncedSearch, tag !== "all" ? tag : undefined),
+      fetchNotes(page, debouncedSearch, normalizedTag),
     placeholderData: (prev) => prev,
   });
 
@@ -44,6 +46,7 @@ export default function NotesClient({ tag = "all" }: { tag?: string }) {
   return (
     <>
       <h1>Notes</h1>
+
 
       <div className={styles.toolbar}>
         <SearchBox onChange={setSearch} />

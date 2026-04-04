@@ -19,6 +19,12 @@
   min-height: 180px;
 }
 
+.cardLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
 .title {
   font-size: 18px;
   font-weight: 600;
