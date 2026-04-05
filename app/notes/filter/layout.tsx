@@ -1,27 +1,16 @@
-import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
 import { ReactNode } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-export default function RootLayout({
+export default function Layout({
   children,
-  modal,
+  sidebar,
 }: {
   children: ReactNode;
-  modal: ReactNode;
+  sidebar: ReactNode;
 }) {
-  const queryClient = new QueryClient();
-
   return (
-    <html lang="en">
-      <body>
-        <QueryClientProvider client={queryClient}>
-          <Header />
-          {children}
-          {modal}
-          <Footer />
-        </QueryClientProvider>
-      </body>
-    </html>
+    <div style={{ display: "flex" }}>
+      <aside>{sidebar}</aside>
+      <main>{children}</main>
+    </div>
   );
 }
