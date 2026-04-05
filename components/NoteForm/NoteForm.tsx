@@ -48,8 +48,12 @@ export default function NoteForm({ onClose }: NoteFormProps) {
   };
 
   const handleSubmit = (values: FormValues) => {
-    mutation.mutate(values);
-  };
+  mutation.mutate({
+    title: values.title,
+    content: values.content,
+    tag: values.tag,
+  });
+};
 
   return (
     <Formik

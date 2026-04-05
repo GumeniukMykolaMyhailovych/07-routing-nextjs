@@ -12,6 +12,7 @@ export interface NotesResponse {
   totalPages: number;
 }
 
+// 📌 Отримати список нотаток
 export const fetchNotes = async (
   page: number = 1,
   tag?: string,
@@ -33,6 +34,7 @@ export const fetchNotes = async (
   return data;
 };
 
+// 📌 Отримати одну нотатку
 export const fetchNoteById = async (id: string): Promise<Note> => {
   const { data } = await axios.get<Note>(`${BASE_URL}/notes/${id}`, {
     headers: getAuthHeader(),
@@ -41,8 +43,9 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
   return data;
 };
 
+// 📌 Створити нотатку (🔥 ФІКС ТУТ)
 export const createNote = async (
-  note: Omit<Note, "id" | "createdAt">
+  note: Omit<Note, "id" | "createdAt" | "updatedAt">
 ): Promise<Note> => {
   const { data } = await axios.post<Note>(
     `${BASE_URL}/notes`,
@@ -53,6 +56,7 @@ export const createNote = async (
   return data;
 };
 
+// 📌 Видалити нотатку
 export const deleteNote = async (id: string): Promise<Note> => {
   const { data } = await axios.delete<Note>(
     `${BASE_URL}/notes/${id}`,
