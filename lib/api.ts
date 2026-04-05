@@ -1,71 +1,24 @@
-import axios, { type AxiosResponse } from "axios";
-import type { Note } from "@/types/note";
+import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "https://notehub-public.goit.study/api",
-});
+export const fetchNotes = async (page = 1, tag?: string) => {
+  const params: Record<string, string | number> = {
+    page,
+    perPage: 12,
+  };
 
-const token = process.env.NEXT_PUBLIC_API_TOKEN;
+  if (tag && tag !== "all") {
+    params.tag = tag;
+  }
 
-const getHeaders = () =>
-  token ? { Authorization: `Bearer ${token}` } : {};
-
-export interface FetchNotesResponse {
-  notes: Note[];
-  totalPages: number;
-}
-
-export const fetchNotes = async (
-  page: number,
-  search: string,
-  tag?: string
-): Promise<FetchNotesResponse> => {
-  const response: AxiosResponse<FetchNotesResponse> =
-    await instance.get("/notes", {
-      params: {
-        page,
-        perPage: 12,
-        search: search || undefined,
-        tag: tag || undefined,
+  const { data } = await axios.get(
+    "https://notehub-public.goit.study/api/notes",
+    {
+      params,
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
       },
-      headers: getHeaders(),
-    });
-
-  return response.data;
-};
-
-export const fetchNoteById = async (id: string): Promise<Note> => {
-  const response: AxiosResponse<Note> = await instance.get(
-    `/notes/${id}`,
-    {
-      headers: getHeaders(),
     }
   );
 
-  return response.data;
-};
-
-export const createNote = async (
-  note: Omit<Note, "id" | "createdAt" | "updatedAt">
-): Promise<Note> => {
-  const response: AxiosResponse<Note> = await instance.post(
-    "/notes",
-    note,
-    {
-      headers: getHeaders(),
-    }
-  );
-
-  return response.data;
-};
-
-export const deleteNote = async (id: string): Promise<Note> => {
-  const response: AxiosResponse<Note> = await instance.delete(
-    `/notes/${id}`,
-    {
-      headers: getHeaders(),
-    }
-  );
-
-  return response.data;
+  return data;
 };

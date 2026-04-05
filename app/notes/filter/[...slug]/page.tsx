@@ -1,18 +1,5 @@
-import NotesClient from "../../Notes.client";
+import { redirect } from "next/navigation";
 
-export default async function FilterPage({
-  params,
-}: {
-  params: Promise<{ slug?: string[] }>;
-}) {
-  const resolvedParams = await params;
-
-  const rawTag = resolvedParams.slug?.[0];
-
-  const tag =
-    rawTag && rawTag !== "all"
-      ? rawTag.charAt(0).toUpperCase() + rawTag.slice(1)
-      : "all";
-
-  return <NotesClient tag={tag} />;
+export default function Page() {
+  redirect("/notes/filter/all");
 }

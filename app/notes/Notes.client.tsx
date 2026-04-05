@@ -17,21 +17,21 @@ export default function NotesClient({ tag = "all" }: { tag?: string }) {
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(search);
-      setPage(1);
-    }, 500);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setDebouncedSearch(search);
+  //     setPage(1);
+  //   }, 500);
 
-    return () => clearTimeout(timer);
-  }, [search]);
+  //   return () => clearTimeout(timer);
+  // }, [search]);
 
   const normalizedTag = tag === "all" ? undefined : tag;
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["notes", page, debouncedSearch, normalizedTag ?? "all"],
+    queryKey: ["notes", page, normalizedTag ?? "all"],
     queryFn: () =>
-      fetchNotes(page, debouncedSearch, normalizedTag),
+  fetchNotes(page, normalizedTag),
     placeholderData: (prev) => prev,
   });
 

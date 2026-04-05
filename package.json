@@ -1,12 +1,12 @@
 {
-  "name": "06-notehub-nextjs",
+  "name": "07-routing-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "set NEXT_DISABLE_TURBOPACK=1 && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.95.2",

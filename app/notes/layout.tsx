@@ -1,30 +1,19 @@
-import Sidebar from "./@sidebar/page";
-
 export default function NotesLayout({
   children,
-  modal,
+  sidebar,
 }: {
   children: React.ReactNode;
-  modal: React.ReactNode;
+  sidebar: React.ReactNode;
 }) {
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      <aside
-        style={{
-          width: "260px",
-          backgroundColor: "#2f2f2f",
-          color: "#fff",
-          padding: "20px",
-        }}
-      >
-        <Sidebar />
+    <div style={{ display: "flex" }}>
+      <aside style={{ width: "250px" }}>
+        {sidebar}
       </aside>
 
-      <main style={{ flex: 1, padding: "20px" }}>
+      <main style={{ flex: 1 }}>
         {children}
       </main>
-
-      {modal}
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Modal from "@/components/Modal/Modal";
-import NoteDetailsPage from "../../[id]/page";
+import NoteDetails from "@/app/notes/[id]/NoteDetails.client";
 
 export default function NoteModal({
   params,
@@ -11,9 +11,13 @@ export default function NoteModal({
 }) {
   const router = useRouter();
 
+  const handleClose = () => {
+    router.back();
+  };
+
   return (
-    <Modal onClose={() => router.back()}>
-      <NoteDetailsPage params={params} />
+    <Modal onClose={handleClose}>
+      <NoteDetails id={params.id} />
     </Modal>
   );
 }
