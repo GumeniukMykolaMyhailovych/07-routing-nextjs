@@ -1,11 +1,13 @@
 import NotesClient from "./Notes.client";
 
-export default function Page({
+export default async function Page({
   params,
 }: {
-  params: { slug?: string[] };
+  params: Promise<{ slug?: string[] }>;
 }) {
-  const tag = params.slug?.[0] ?? "all";
+  const resolvedParams = await params;
+
+  const tag = resolvedParams.slug?.[0] ?? "all";
 
   return <NotesClient tag={tag} />;
 }
